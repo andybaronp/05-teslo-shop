@@ -9,13 +9,9 @@ import {
   IconButton,
   Badge,
 } from '@mui/material'
-import {
-  SearchOutlined,
-  ShoppingBagOutlined,
-  ShoppingCartOutlined,
-} from '@mui/icons-material'
+import { SearchOutlined, ShoppingCartOutlined } from '@mui/icons-material'
 
-const Navbar = () => {
+export const Navbar = () => {
   return (
     <AppBar>
       <Toolbar>
@@ -63,5 +59,3 @@ const Navbar = () => {
     </AppBar>
   )
 }
-
-export default Navbar
