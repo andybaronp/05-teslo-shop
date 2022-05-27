@@ -3,6 +3,7 @@ import ShopLayout from '../../components/layouts/ShopLayout'
 import { initialData } from '../../database/products'
 import { ProductSlidesShow } from '../../components/products/ProductSlidesShow'
 import { ItenCounter } from '../../components/ui'
+import { SizeSelector } from '../../components/products'
 
 const product = initialData.products[0]
 const slugPage = () => {
@@ -22,9 +23,13 @@ const slugPage = () => {
               $ {product.price}
             </Typography>
             {/* {Cantidad} */}
-            <Box sx={{ mt: 2 }}>
+            <Box sx={{ my: 2 }}>
               <Typography variant='subtitle2'>Cantidad</Typography>
               <ItenCounter />
+              <SizeSelector
+                sizes={product.sizes}
+                // selectedSize={product.sizes[0]}
+              />
             </Box>
             {/* {Agregar al carrito} */}
             <Button color='secondary' className='circular-btn'>
