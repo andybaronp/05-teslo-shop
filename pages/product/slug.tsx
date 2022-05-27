@@ -2,6 +2,7 @@ import { Button, Grid, Typography, Box, Chip } from '@mui/material'
 import ShopLayout from '../../components/layouts/ShopLayout'
 import { initialData } from '../../database/products'
 import { ProductSlidesShow } from '../../components/products/ProductSlidesShow'
+import { ItenCounter } from '../../components/ui'
 
 const product = initialData.products[0]
 const slugPage = () => {
@@ -23,7 +24,7 @@ const slugPage = () => {
             {/* {Cantidad} */}
             <Box sx={{ mt: 2 }}>
               <Typography variant='subtitle2'>Cantidad</Typography>
-              {/* {itemCounter  } */}
+              <ItenCounter />
             </Box>
             {/* {Agregar al carrito} */}
             <Button color='secondary' className='circular-btn'>
