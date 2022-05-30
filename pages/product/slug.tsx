@@ -2,7 +2,7 @@ import { Button, Grid, Typography, Box, Chip } from '@mui/material'
 import ShopLayout from '../../components/layouts/ShopLayout'
 import { initialData } from '../../database/products'
 import { ProductSlidesShow } from '../../components/products/ProductSlidesShow'
-import { ItenCounter } from '../../components/ui'
+import { ItemCounter } from '../../components/ui'
 import { SizeSelector } from '../../components/products'
 
 const product = initialData.products[0]
@@ -25,7 +25,7 @@ const slugPage = () => {
             {/* {Cantidad} */}
             <Box sx={{ my: 2 }}>
               <Typography variant='subtitle2'>Cantidad</Typography>
-              <ItenCounter />
+              <ItemCounter />
               <SizeSelector
                 sizes={product.sizes}
                 // selectedSize={product.sizes[0]}

@@ -4,7 +4,7 @@ import { IconButton, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 
 interface Props {}
-export const ItenCounter: FC<Props> = () => {
+export const ItemCounter: FC<Props> = () => {
   return (
     <Box display='flex' alignItems='center'>
       <IconButton>
