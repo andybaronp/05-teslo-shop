@@ -1,13 +1,14 @@
 import {
   FormControl,
   Grid,
-  InputLabel,
+  Box,
   MenuItem,
   Select,
   TextField,
   Typography,
 } from '@mui/material'
 import ShopLayout from '../../components/layouts/ShopLayout'
+import { Button } from '@mui/material'
 
 const AddressPage = () => {
   return (
@@ -15,7 +16,7 @@ const AddressPage = () => {
       title='Dirección'
       pageDescription='Confirmar dirección de destino'
     >
-      <Typography variant='h1' component='h1'>
+      <Typography variant='h1' component='h1' sx={{ mb: 2 }}>
         Dirección
       </Typography>
       <Grid container spacing={2}>
@@ -55,6 +56,11 @@ const AddressPage = () => {
           <TextField label='Ciudad' variant='filled' fullWidth />
         </Grid>
       </Grid>
+      <Box display='flex' justifyContent='center' sx={{ mt: 2 }}>
+        <Button className='circular-btn' color='secondary'>
+          Revisar pedido
+        </Button>
+      </Box>
     </ShopLayout>
   )
 }
