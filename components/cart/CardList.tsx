@@ -1,4 +1,5 @@
-import { initialData } from '../../database/products'
+import { FC } from 'react'
+import NextLink from 'next/link'
 import {
   CardActionArea,
   CardMedia,
@@ -8,11 +9,10 @@ import {
   Box,
   Button,
 } from '@mui/material'
-import NextLink from 'next/link'
 import { ItemCounter } from '../ui'
-import { FC } from 'react'
+import { initialData } from '../../database/products'
 
-const ProductsInCar = [
+const productsInCart = [
   initialData.products[0],
   initialData.products[1],
   initialData.products[2],
@@ -24,7 +24,7 @@ interface Props {
 export const CardList: FC<Props> = ({ editable = false }) => {
   return (
     <>
-      {ProductsInCar.map((product) => (
+      {productsInCart.map((product) => (
         <Grid container key={product.slug} spacing={2} sx={{ mb: 1 }}>
           {/*Todo: llevar a la pagina del product */}
           <Grid item xs={3}>
@@ -61,7 +61,7 @@ export const CardList: FC<Props> = ({ editable = false }) => {
             alignItems='center'
           >
             <Typography variant='subtitle1'>{`$${product.price}`}</Typography>
-            {/*Editable */}
+
             {editable && (
               <Button color='secondary' variant='text'>
                 Remover
