@@ -22,14 +22,14 @@ const productSchema = new Schema(
     type: {
       type: String,
       enum: {
-        values: ['shirt', 'pants', 'hoodies', 'hats'],
+        values: ['shirts', 'pants', 'hoodies', 'hats'],
         message: '${VALUE} no es un tamaño válido',
       },
     },
     gender: {
       type: String,
       enum: {
-        values: ['men', 'women', 'kid', 'unsex'],
+        values: ['men', 'women', 'kid', 'unisex'],
         message: '${VALUE} no es un genero válido',
       },
     },
