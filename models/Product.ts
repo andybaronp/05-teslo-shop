@@ -1,4 +1,4 @@
-import mogoose, { Schema, model, Model } from 'mongoose'
+import mongoose, { Schema, model, Model } from 'mongoose'
 import { IProduct } from '../interfaces'
 
 const productSchema = new Schema(
@@ -39,7 +39,10 @@ const productSchema = new Schema(
   }
 )
 
+// index de busqyeda
+productSchema.index({ title: 'text', tags: 'text' })
+
 const Product: Model<IProduct> =
-  mogoose.models.Product || model('Product', productSchema)
+  mongoose.models.Product || model('Product', productSchema)
 
 export default Product
