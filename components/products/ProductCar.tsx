@@ -16,6 +16,7 @@ interface Props {
 }
 export const ProductCar: FC<Props> = ({ product }) => {
   const [isHovered, setIsHovered] = useState(false)
+  const [isLoadImge, setIsLoadImge] = useState(false)
 
   const productImage = useMemo(() => {
     return isHovered
@@ -39,13 +40,17 @@ export const ProductCar: FC<Props> = ({ product }) => {
                 component='img'
                 image={productImage}
                 alt={product.title}
+                onLoad={() => setIsLoadImge(true)}
               />
             </CardActionArea>
           </Link>
         </NextLink>
       </Card>
 
-      <Box sx={{ mt: 1 }} className='fadeIn'>
+      <Box
+        sx={{ mt: 1, display: isLoadImge ? 'block' : 'none' }}
+        className='fadeIn'
+      >
         <Typography fontWeight={700}>{product.title}</Typography>
         <Typography fontWeight={500}>${product.price}</Typography>
       </Box>

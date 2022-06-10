@@ -56,9 +56,9 @@ export const CartList: FC<Props> = ({ editable = false }) => {
           <Grid
             item
             xs={2}
-            diplay='flex'
-            flexDirection='column'
+            display='flex'
             alignItems='center'
+            flexDirection='column'
           >
             <Typography variant='subtitle1'>{`$${product.price}`}</Typography>
 
