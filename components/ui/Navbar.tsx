@@ -10,8 +10,10 @@ import {
   Badge,
 } from '@mui/material'
 import { SearchOutlined, ShoppingCartOutlined } from '@mui/icons-material'
+import { useRouter } from 'next/router'
 
 export const Navbar = () => {
+  const { pathname } = useRouter()
   return (
     <AppBar>
       <Toolbar>
@@ -26,17 +28,25 @@ export const Navbar = () => {
         <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
           <NextLink href='/category/men' passHref>
             <Link>
-              <Button>Hombres</Button>
+              <Button color={pathname === '/category/men' ? 'primary' : 'info'}>
+                Hombres
+              </Button>
             </Link>
           </NextLink>
-          <NextLink href='/category/woman' passHref>
+          <NextLink href='/category/women' passHref>
             <Link>
-              <Button>Mujeres</Button>
+              <Button
+                color={pathname === '/category/women' ? 'primary' : 'info'}
+              >
+                Mujeres
+              </Button>
             </Link>
           </NextLink>
           <NextLink href='/category/kid' passHref>
             <Link>
-              <Button>Niños</Button>
+              <Button color={pathname === '/category/kid' ? 'primary' : 'info'}>
+                Niños
+              </Button>
             </Link>
           </NextLink>
         </Box>

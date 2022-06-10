@@ -8,6 +8,8 @@ import { FullScreenLoading } from '../components/ui'
 const HomePage: NextPage = () => {
   // useProducts --  fetcher
   const { products, isLoading } = useProducts('/products')
+  console.log(products)
+
   return (
     <ShopLayout
       title={'TesloShop | Home'}
