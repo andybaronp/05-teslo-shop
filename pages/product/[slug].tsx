@@ -14,7 +14,6 @@ interface Props {
 }
 
 const ProductPage: NextPage<Props> = ({ product }) => {
-  console.log(product)
   return (
     <ShopLayout title={product.title} pageDescription={product.description}>
       <Grid container spacing={3}>
@@ -83,9 +82,9 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
   const productSlugs = await dbProducts.getAllProductSlugs()
 
   return {
-    paths: productSlugs.map(({ slug }) => ({
+    paths: productSlugs.map((slugs) => ({
       params: {
-        slug,
+        slug: slugs.slug.toString(),
       },
     })),
     fallback: 'blocking',
