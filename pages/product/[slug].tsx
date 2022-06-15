@@ -103,9 +103,7 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { slug = '' } = params as { slug: string }
-
-  const product = await dbProducts.getProductBySlug(`${slug}`)
-  console.log(product)
+  const product = await dbProducts.getProductBySlug(slug)
 
   if (!product) {
     return {
@@ -118,9 +116,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   return {
     props: {
-      product: 'men_turbine_short_sleeve_tee',
+      product,
     },
     revalidate: 60 * 60 * 24,
   }
 }
+
 export default ProductPage
