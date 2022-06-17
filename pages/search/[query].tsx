@@ -20,7 +20,7 @@ const QueryPage: NextPage<Props> = ({ products, foundProducts, query }) => {
         Buscar productos
       </Typography>
       {foundProducts ? (
-        <Typography variant='h2' sx={{ mb: 1 }}>
+        <Typography variant='h2' sx={{ mb: 1 }} textTransform='capitalize'>
           Término: {query}
         </Typography>
       ) : (
@@ -28,7 +28,12 @@ const QueryPage: NextPage<Props> = ({ products, foundProducts, query }) => {
           <Typography variant='h2' sx={{ mb: 1 }}>
             No encontramos ningún producto{' '}
           </Typography>
-          <Typography variant='h2' color='secondary' sx={{ ml: 1 }}>
+          <Typography
+            variant='h2'
+            color='secondary'
+            sx={{ ml: 1 }}
+            textTransform='capitalize'
+          >
             {query}
           </Typography>
         </Box>

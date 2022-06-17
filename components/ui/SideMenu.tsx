@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { UiContext } from '../../context'
 import {
   Box,
@@ -43,6 +43,17 @@ export const SideMenu = () => {
     router.push(url)
   }
 
+  // autofocus username input
+  const textFieldInputFocus = (inputRef: any) => {
+    if (inputRef && inputRef.node !== null) {
+      setTimeout(() => {
+        inputRef.focus()
+      }, 100)
+    }
+    return inputRef
+  }
+  let textFieldProps = { inputRef: textFieldInputFocus }
+
   return (
     <Drawer
       open={isMenuOpen}
@@ -54,6 +65,7 @@ export const SideMenu = () => {
         <List>
           <ListItem>
             <Input
+              {...textFieldProps}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               onKeyPress={(e) => (e.key === 'Enter' ? onSearchTerm() : null)}
