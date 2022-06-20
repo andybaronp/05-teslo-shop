@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { NextPage, GetStaticPaths, GetStaticProps } from 'next'
 
 import { Button, Grid, Typography, Box, Chip } from '@mui/material'
@@ -6,7 +7,7 @@ import ShopLayout from '../../components/layouts/ShopLayout'
 import { ProductSlidesShow } from '../../components/products/ProductSlidesShow'
 import { ItemCounter } from '../../components/ui'
 import { SizeSelector } from '../../components/products'
-import { IProduct } from '../../interfaces'
+import { IProduct, ICartProduct, ISize } from '../../interfaces'
 import { dbProducts } from '../../database'
 
 interface Props {
@@ -14,6 +15,27 @@ interface Props {
 }
 
 const ProductPage: NextPage<Props> = ({ product }) => {
+  const [tempCartProduct, setTempCartProduct] = useState<ICartProduct>({
+    _id: product._id,
+    image: product.images[0],
+    price: product.price,
+    size: undefined,
+    slug: product.slug,
+    title: product.title,
+    gender: product.gender,
+    quantity: 1,
+  })
+  const onSelectedSize = (size: ISize) => {
+    // setTempCartProduct({
+    //   ...tempCartProduct,
+    //   size,
+    // })
+    setTempCartProduct((current) => ({
+      ...current,
+      size,
+    }))
+  }
+
   return (
     <ShopLayout title={product.title} pageDescription={product.description}>
       <Grid container spacing={3}>
@@ -22,7 +44,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
         </Grid>
         <Grid item xs={12} sm={5}>
           <Box display='flex' flexDirection='column'>
-            {/* {T+itulos} */}
+            {/* {Títulos} */}
             <Typography variant='h1' component='h1'>
               {product.title}
             </Typography>
@@ -33,16 +55,27 @@ const ProductPage: NextPage<Props> = ({ product }) => {
             <Box sx={{ my: 2 }}>
               <Typography variant='subtitle2'>Cantidad</Typography>
               <ItemCounter />
+
               <SizeSelector
                 sizes={product.sizes}
-                // selectedSize={product.sizes[0]}
+                selectedSize={tempCartProduct.size}
+                onSelectedSize={onSelectedSize}
               />
             </Box>
             {/* {Agregar al carrito} */}
-            <Button color='secondary' className='circular-btn'>
-              Agregar al carrito
-            </Button>
-            {/* <Chip label='No hay disponibles' color='error' variant='outlined' /> */}
+            {product.inStock > 0 ? (
+              <Button color='secondary' className='circular-btn'>
+                {tempCartProduct.size
+                  ? ' Agregar al carrito'
+                  : 'Seleccione una talla'}
+              </Button>
+            ) : (
+              <Chip
+                label='No hay disponibles'
+                color='error'
+                variant='outlined'
+              />
+            )}
             {/* {Description} */}
             <Box sx={{ mt: 3 }}>
               <Typography variant='subtitle2'>Description</Typography>
