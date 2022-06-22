@@ -25,17 +25,26 @@ const ProductPage: NextPage<Props> = ({ product }) => {
     gender: product.gender,
     quantity: 1,
   })
-  const onSelectedSize = (size: ISize) => {
-    // setTempCartProduct({
-    //   ...tempCartProduct,
-    //   size,
-    // })
-    setTempCartProduct((current) => ({
-      ...current,
-      size,
-    }))
-  }
 
+
+  const onSelectedSize = (size: ISize) => {
+    setTempCartProduct({
+      ...tempCartProduct,
+      size,
+      
+    })
+  }
+  const updateQuantity = (quantity: number) => {
+     setTempCartProduct({
+      ...tempCartProduct,
+      quantity 
+    })
+  }
+  const onAddProduct = () => {
+    console.log(tempCartProduct)
+    console.log(product.inStock);
+    
+}
   return (
     <ShopLayout title={product.title} pageDescription={product.description}>
       <Grid container spacing={3}>
@@ -54,7 +63,12 @@ const ProductPage: NextPage<Props> = ({ product }) => {
             {/* {Cantidad} */}
             <Box sx={{ my: 2 }}>
               <Typography variant='subtitle2'>Cantidad</Typography>
-              <ItemCounter />
+              <ItemCounter 
+              currentValue={ tempCartProduct.quantity}
+              updateQuantity={updateQuantity}
+              maxValue={product.inStock  > 10 ? 10 : product.inStock}
+               
+              />
 
               <SizeSelector
                 sizes={product.sizes}
@@ -64,7 +78,10 @@ const ProductPage: NextPage<Props> = ({ product }) => {
             </Box>
             {/* {Agregar al carrito} */}
             {product.inStock > 0 ? (
-              <Button color='secondary' className='circular-btn'>
+              <Button color='secondary' className='circular-btn'
+              onClick={onAddProduct}
+              >
+
                 {tempCartProduct.size
                   ? ' Agregar al carrito'
                   : 'Seleccione una talla'}
