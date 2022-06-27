@@ -1,5 +1,7 @@
-import { useState } from 'react'
+import { useState,useContext } from 'react'
+
 import { NextPage, GetStaticPaths, GetStaticProps } from 'next'
+import { useRouter } from 'next/router'
 
 import { Button, Grid, Typography, Box, Chip } from '@mui/material'
 
@@ -9,6 +11,7 @@ import { ItemCounter } from '../../components/ui'
 import { SizeSelector } from '../../components/products'
 import { IProduct, ICartProduct, ISize } from '../../interfaces'
 import { dbProducts } from '../../database'
+import { CartContext } from '../../context/cart/CartContext';
 
 interface Props {
   product: IProduct
@@ -25,7 +28,8 @@ const ProductPage: NextPage<Props> = ({ product }) => {
     gender: product.gender,
     quantity: 1,
   })
-
+  const router = useRouter()
+  const {addProductToCart} = useContext(CartContext)
 
   const onSelectedSize = (size: ISize) => {
     setTempCartProduct({
@@ -35,15 +39,18 @@ const ProductPage: NextPage<Props> = ({ product }) => {
     })
   }
   const updateQuantity = (quantity: number) => {
-     setTempCartProduct({
+    setTempCartProduct({
       ...tempCartProduct,
       quantity 
     })
   }
   const onAddProduct = () => {
-    console.log(tempCartProduct)
-    console.log(product.inStock);
+    if (!tempCartProduct.size) return 
     
+    // LLamar la accion del context para agregar al cart
+    addProductToCart(tempCartProduct)
+console.log(tempCartProduct)
+    //router.push('/cart')
 }
   return (
     <ShopLayout title={product.title} pageDescription={product.description}>
