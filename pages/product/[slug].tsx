@@ -49,8 +49,8 @@ const ProductPage: NextPage<Props> = ({ product }) => {
     
     // LLamar la accion del context para agregar al cart
     addProductToCart(tempCartProduct)
-console.log(tempCartProduct)
-    //router.push('/cart')
+
+    router.push('/cart')
 }
   return (
     <ShopLayout title={product.title} pageDescription={product.description}>
