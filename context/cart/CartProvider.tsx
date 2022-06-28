@@ -1,6 +1,6 @@
 import { FC, useReducer, useEffect } from 'react';
 import Cookie from "js-cookie";
-import { ICartProduct } from '../../interfaces'
+import { ICartProduct, IProduct } from '../../interfaces'
 import { CartContext, cartReducer } from './'
 
 export interface CartState {
@@ -29,8 +29,6 @@ export const CartProvider: FC<Props> = ({ children }) => {
       dispatch({type:'[Cart] - LoadCart from cookies | storage ',payload: []})
       
     }
-    
-     
  
   }, [])
   
@@ -79,6 +77,17 @@ export const CartProvider: FC<Props> = ({ children }) => {
     dispatch({type:'[Cart] - Update products in cart ', payload: updatedProducts})
 }
 
+  const updateCartQuantity = (product: ICartProduct) => {
+    
+    dispatch({type:'[Cart] - Change cart quantity ' ,payload: product })
+  }
+
+  const removeProductIncart = (product: ICartProduct) => {
+   
+    
+    dispatch({type:'[Cart] - Remove product in cart ' ,payload: product })
+
+  }
   return (
     <CartContext.Provider
       value={{
@@ -86,6 +95,8 @@ export const CartProvider: FC<Props> = ({ children }) => {
 
         //Methods
         addProductToCart,
+        updateCartQuantity,
+        removeProductIncart
       }}
     >
       {children}

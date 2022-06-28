@@ -2,11 +2,10 @@ import { ICartProduct } from '../../interfaces'
 import { CartState } from './'
 
 type CartActionType =
-  | {
-      type: '[Cart] - LoadCart from cookies | storage '
-      payload: ICartProduct[]
-    }
+  | { type: '[Cart] - LoadCart from cookies | storage ',payload: ICartProduct[]}
   | { type: '[Cart] - Update products in cart '; payload: ICartProduct[] }
+  | { type: '[Cart] - Change cart quantity '; payload: ICartProduct }
+  | { type: '[Cart] - Remove product in cart '; payload: ICartProduct }
 
 export const cartReducer = (state: CartState, action: CartActionType): CartState => {
 
@@ -22,12 +21,33 @@ export const cartReducer = (state: CartState, action: CartActionType): CartState
         ...state,
         //cart...
         cart: [...action.payload]
-        
-        
+   
+      }
+    case '[Cart] - Change cart quantity ':
+      return {
+        ...state,
+        cart: state.cart.map(product => {
+          if(product._id !== action.payload._id) return product
+          if (product.size !== action.payload.size) return product
           
+          return action.payload
+        })
+      }
+    case '[Cart] - Remove product in cart ':
+      return {
+        ...state,
+    /*     cart: state.cart.filter(item => {
+      if(item._id !== action.payload._id) return item
+      if(item.size !==action.payload.size) return item
+
+      return item !== action.payload
+      
+    }) */
+        cart: state.cart.filter(product => !(product.size === action.payload.size && product._id === action.payload._id))
       }
 
     default:
       return state
   }
 }
+  

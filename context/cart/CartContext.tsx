@@ -6,6 +6,8 @@ interface Contexprops {
 
   //Methods
   addProductToCart: (product: ICartProduct) => void;
+  updateCartQuantity: (product: ICartProduct) => void;
+  removeProductIncart: (product: ICartProduct) => void;
 }
 
 export const CartContext = createContext({} as Contexprops)
