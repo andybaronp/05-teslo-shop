@@ -5,6 +5,10 @@ import { CartContext, cartReducer } from './'
 
 export interface CartState {
   cart: ICartProduct[]
+  numberOfItems: number;
+  subTotal: number;
+  tax: number;
+  total: number;
 }
 
 interface Props {
@@ -13,6 +17,10 @@ interface Props {
 
 const CART_INITIAL_STATE: CartState = {
   cart: [],
+  numberOfItems: 0,
+  subTotal: 0,
+  tax: 0,
+  total: 0
 }
 
 export const CartProvider: FC<Props> = ({ children }) => {
@@ -43,6 +51,22 @@ export const CartProvider: FC<Props> = ({ children }) => {
   }, [state.cart])
   
 
+  useEffect(() => {
+    
+    const numberOfItems = state.cart.reduce((prev, current) => current.quantity + prev, 0)
+    const subTotal = state.cart.reduce((prev, current) => (current.quantity * current.price) + prev, 0)
+    const taxRate = Number(process.env.NEXT_PUBLIC_TAX_RATE || 0)
+
+    const orderSummary = {
+      numberOfItems,
+      subTotal,
+      tax: subTotal * taxRate,
+      total: subTotal*(taxRate + 1)
+}
+   dispatch({type:'[Cart] - Update order sumery ',payload: orderSummary})
+
+  },[state.cart])
+
   const addProductToCart = (product: ICartProduct) => {
     
     //dispatch({ type: '[Cart] - LoadCart from cookies | storage ',payload: product})
@@ -50,8 +74,7 @@ export const CartProvider: FC<Props> = ({ children }) => {
     //const productsIncart = state.cart.filter(item => item._id === product._id && item.size === product.size)
    // dispatch({ type: '[Cart] - LoadCart from cookies | storage ',payload:[...productsIncar, productsIncar]})
 
-    
-    
+       
     //Verifiacar si hay productos
     const productsInCart = state.cart.some(item => item._id === product._id)
     if (!productsInCart) {
