@@ -2,10 +2,11 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import bcrypt from 'bcryptjs';
 import { db } from '../../../database';
 import { User } from '../../../models';
+import { jwt } from '../../../utils';
 
 type Data = | { message: string }
     | {
-        toke: string
+        token: string
         user: {
             name: string,
             email: string,
@@ -41,11 +42,11 @@ const loginUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     if (!bcrypt.compareSync(password, user.password!)) {
         return res.status(400).json({ message: 'Email o contraseña incorrecta - PASSWORD' })
     }
-    const { role, name } = user
-
+    const { role, name, _id } = user
+    const token = jwt.signToken(_id, email)
     return res.status(200).json({
 
-        toke: '',
+        token,
         user: {
             name,
             email,
