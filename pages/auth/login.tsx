@@ -16,7 +16,7 @@ type FormData = {
 
 
 const LoginPase = () => {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<FormData>();
+  const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
   const [showError, setShowError] = useState(false)
 
   const onSubmit = async ({ email, password }: FormData) => {
